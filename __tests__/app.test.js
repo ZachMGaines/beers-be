@@ -2,7 +2,7 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
-import Beer from '../lib/models/Beer';
+import Beer from '../lib/models/Beer.js';
 
 describe('demo routes', () => {
   beforeEach(() => {
@@ -11,13 +11,14 @@ describe('demo routes', () => {
   it('creates a beer via POST', async () => {
     const res = await request(app)
       .post('/api/v1/beers')
-      .send({ name: 'barney', abv: '9%', type: 'IPA', rating: 5 });
-    expect(res.body).toEqual({ id: 1, name: 'barney', abv: '9%', type: 'IPA', rating: 5 });
+      .send({ name: 'barney', image: 'hi', abv: '9%', type: 'IPA', rating: 5 });
+    expect(res.body).toEqual({ id: 1, name: 'barney', image: 'hi', abv: '9%', type: 'IPA', rating: 5 });
   });
 
   it('finds a beer via GET', async () => {
     const beer = await Beer.insert({
       name: 'lagunitas',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg/600px-Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg',
       abv: '6.8%',
       type: 'IPA',
       rating: 3
@@ -29,6 +30,7 @@ describe('demo routes', () => {
   it('finds all beers via GET', async () => {
     const rainier = await Beer.insert({
       name: 'modelo',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg/600px-Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg',
       abv: '4.8%',
       type: 'lager',
       rating: 2
@@ -36,6 +38,7 @@ describe('demo routes', () => {
 
     const modelo = await Beer.insert({
       name: 'modelo',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg/600px-Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg',
       abv: '4.5%',
       type: 'lager',
       rating: 2
@@ -43,6 +46,7 @@ describe('demo routes', () => {
 
     const zach = await Beer.insert({
       name: 'zach',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg/600px-Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg',
       abv: '100%',
       type: 'double IPA',
       rating: 5
@@ -57,6 +61,7 @@ describe('demo routes', () => {
   it('updates a beer by id via PUT', async () => {
     const rainier = await Beer.insert({
       name: 'rainier',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg/600px-Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg',
       abv: '4.8%',
       type: 'lager',
       rating: 3
@@ -65,6 +70,7 @@ describe('demo routes', () => {
     const newRainier = {
       id: 1,
       name: 'rainier',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg/600px-Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg',
       abv: '10%',
       type: 'lager',
       rating: 4
@@ -77,6 +83,7 @@ describe('demo routes', () => {
   it('deletes a beer!', async () => {
     const rainier = await Beer.insert({
       name: 'rainier',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg/600px-Paulaner_Oktoberfest_Marzen_11.2oz_bottle_and_beer_mug.jpg',
       abv: '4.8%',
       type: 'lager',
       rating: 4
